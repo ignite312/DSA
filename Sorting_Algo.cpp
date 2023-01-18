@@ -42,17 +42,36 @@ void merge(int l, int r, int mid) {
         R[i] = a[i+mid+1];
     }
     L[l_sz] = R[r_sz] = INT_MAX;
+
+    int l_i = 0, r_i = 0;
+    for(int i = l; i <= r; i++) {
+        if(L[l_i] <= R[r_i]) {
+            a[i] = L[l_i];
+            l_i++;
+        }else {
+            a[i] = R[r_i];
+            r_i++;
+        }
+    }
+    return;
+}
+void mergeSort(int l, int r) {
+    if(l == r)return;
+    int mid = l + (r - l)/2;
+    mergeSort(l, mid);
+    mergeSort(mid+1, r);
+    merge(l, r, mid);
 }
 int main() {
 	int n;
     scanf("%d", &n);
     int arr[n];
     for(int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);  
+        scanf("%d", &a[i]);  
     }
-	selectionSort(arr, n);
+	mergeSort(0, n-1);
 	for(int i = 0; i < n; i++) {
-		printf("%d ", arr[i]);
+		printf("%d ", a[i]);
 	}
     return 0;
 }
