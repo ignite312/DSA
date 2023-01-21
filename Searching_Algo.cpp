@@ -1,40 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int lower_bound(int arr[], int N, int X) {
-    int mid;
-    int low = 0;
-    int high = N;
-    while (low < high) {
-        mid = low + (high - low) / 2;
-        if (X <= arr[mid])high = mid;
-        else low = mid + 1;
+int upper_bound(int a[], int n, int x) {
+    int l = 0;
+    int h = n;
+    while (l < h) {
+        int mid =  l + (h - l) / 2;
+        if (x >= a[mid])l = mid + 1;
+        else h = mid;
     }
-    if(low < N && arr[low] < X)low++;
-    return low;
+    return l;
 }
-int upper_bound(int arr[], int N, int X) {
-    int mid;
-    int low = 0;
-    int high = N;
-    while (low < high) {
-        mid = low + (high - low) / 2;
-        if (X >= arr[mid])low = mid + 1;
-        else high = mid;
+int lower_bound(int a[], int n, int x) {
+    int l = 0;
+    int h = n;
+    while (l < h) {
+        int mid =  l + (h - l) / 2;
+        if (x <= a[mid])h = mid;
+        else l = mid + 1;
     }
-    if(low < N && arr[low] <= X)low++;
-    return low;
+    return l;
 }
 int main() {
-	int n;
+	int n, target;
     scanf("%d", &n);
     int arr[n];
-    for(int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);  
-    }
-	selectionSort(arr, n);
-	for(int i = 0; i < n; i++) {
-		printf("%d ", arr[i]);
-	}
+    for(int i = 0; i < n; i++)scanf("%d", &arr[i]); 
+    scanf("%d", &target);
+    printf("%d\n", upper_bound(arr, n, target));
+    printf("%d\n", lower_bound(arr, n, target));
     return 0;
 }
