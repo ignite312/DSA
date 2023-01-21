@@ -1,22 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int upper_bound(int a[], int n, int x) {
-    int l = 0;
-    int h = n;
-    while (l < h) {
+int linearSearch(int arr[], int n, int x) {
+    for(int i = 0; i < n; i++)
+        if(arr[i] == x)
+            return i;
+    return -1;
+}
+int binarySearch(int arr[], int n, int x) {
+    int l = 0, r = n - 1;
+    while(l <= r) {
+        int mid = l + (r - l) / 2;
+        if(arr[mid] == x) return mid;
+        if(arr[mid] < x) l = mid + 1;
+        else r = mid - 1;
+    }
+    return -1;
+}
+int upper_bound(int arr[], int n, int x) {
+    int l = 0, h = n;
+    while(l < h) {
         int mid =  l + (h - l) / 2;
-        if (x >= a[mid])l = mid + 1;
+        if (x >= arr[mid])l = mid + 1;
         else h = mid;
     }
     return l;
 }
-int lower_bound(int a[], int n, int x) {
-    int l = 0;
-    int h = n;
-    while (l < h) {
+int lower_bound(int arr[], int n, int x) {
+    int l = 0, h = n;
+    while(l < h) {
         int mid =  l + (h - l) / 2;
-        if (x <= a[mid])h = mid;
+        if(x <= arr[mid])h = mid;
         else l = mid + 1;
     }
     return l;
@@ -29,5 +43,7 @@ int main() {
     scanf("%d", &target);
     printf("%d\n", upper_bound(arr, n, target));
     printf("%d\n", lower_bound(arr, n, target));
+    printf("%d\n", binarySearch(arr, n, target));
+    printf("%d\n", linearSearch(arr, n, target));
     return 0;
 }
