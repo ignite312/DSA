@@ -73,6 +73,21 @@ void quickSort(int arr[], int low, int high) {
         quickSort(arr, pi + 1, high);
     }
 }
+void countingSort(int arr[], int n) {
+    int ans[n], mx = arr[0];
+    for(int i = 0; i < n; i++)
+        if(arr[i] > mx)
+            mx = arr[i];
+    int cnt[mx+1];
+    for(int i = 0; i <= mx; i++)cnt[i] = 0;
+    for(int i = 0; i < n; i++)cnt[arr[i]]++;
+    for(int i = 1; i <= mx; i++)cnt[i]+=cnt[i-1];
+    for(int i = 0; i < n; i++) {
+        ans[cnt[arr[i]] - 1] = arr[i];
+        cnt[arr[i]]--;
+    }
+    for(int i = 0; i < n; i++)arr[i] = ans[i];
+}
 int main() {
     int n;
     scanf("%d", &n);
