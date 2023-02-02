@@ -82,11 +82,30 @@ void countingSort(int arr[], int n) {
     for(int i = 0; i <= mx; i++)cnt[i] = 0;
     for(int i = 0; i < n; i++)cnt[arr[i]]++;
     for(int i = 1; i <= mx; i++)cnt[i]+=cnt[i-1];
-    for(int i = 0; i < n; i++) {
+    for(int i = n - 1; i >= 0; i--) {
         ans[cnt[arr[i]] - 1] = arr[i];
         cnt[arr[i]]--;
     }
     for(int i = 0; i < n; i++)arr[i] = ans[i];
+}
+void countingSortRadix(int arr[], int n, int exp) {
+    int ans[n];
+    int cnt[10];
+    for(int i = 0; i < 10; i++)cnt[i] = 0;
+    for(int i = 0; i < n; i++)cnt[(arr[i]/exp) % 10]++;
+    for(int i = 1; i < 10; i++)cnt[i]+=cnt[i-1];
+    for(int i = n - 1; i >= 0; i--) {
+        ans[cnt[(arr[i]/exp) % 10] - 1] = arr[i];
+        cnt[(arr[i]/exp) % 10]--;
+    }
+    for(int i = 0; i < n; i++)arr[i] = ans[i];
+}
+void radixSort(int arr[], int n) {
+    int mx = arr[0];
+    for(int i = 0; i < n; i++)
+        if(arr[i] > mx)
+            mx = arr[i];
+    for(int exp = 1; mx/exp > 0; exp*=10)countingSortRadix(arr, n, exp);
 }
 int main() {
     int n;
