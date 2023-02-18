@@ -90,10 +90,9 @@ int main() {
 		insert_front(&head, x);
 	}
 	display(head);
-	cout << search(head, 7) << "\n";
-	delete_node(&head, head->next->next->next);
-	cout << search(head, 7) << "\n";
-	display(head);
 	sort(head);
 	display(head);
+	cout << search(head, 4) << "\n";
+	delete_node(&head, head->next->next->next);
+	cout << search(head, 4) << "\n";
 }
