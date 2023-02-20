@@ -88,6 +88,28 @@ void countingSort(int arr[], int n) {
     }
     for(int i = 0; i < n; i++)arr[i] = ans[i];
 }
+void bucketSort(int arr[], int n, int totalBucket) {
+    int mx = INT_MIN, mn = INT_MAX;
+    for(int i = 0; i < n; i++) {
+        if(arr[i] > mx)mx = arr[i];
+        if(arr[i] < mn)mn = arr[i];
+    }
+    double range = (mx - mn)*1.0/totalBucket;
+    vector<vector<int>> bucket(totalBucket);
+    for(int i = 0; i < n; i++) {
+        double diff = (arr[i]-mn)/range - (int)(arr[i]-mn)/range;
+        if(diff == 0 && arr[i] != mn)
+            bucket[(int)(arr[i]-mn)/range - 1].push_back(arr[i]);
+        else bucket[(int)(arr[i]-mn)/range].push_back(arr[i]);
+    }
+    int k = 0;
+    for(int i = 0; i < bucket.size(); i++)
+        sort(bucket[i].begin(), bucket[i].end());
+    for(int i = 0; i < bucket.size(); i++)
+        for(int j = 0; j < bucket[i].size(); j++)
+            arr[k++] = bucket[i][j];
+    return;
+}
 void countingSortRadix(int arr[], int n, int exp) {
     int ans[n];
     int cnt[10];
