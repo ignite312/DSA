@@ -121,12 +121,23 @@ void countingSortRadix(int arr[], int n, int exp) {
     }
     for(int i = 0; i < n; i++)arr[i] = ans[i];
 }
+void bucketSortRadix(int arr[], int n, int exp) {
+    vector<vector<int>> buckets(10);
+    for (int i = 0; i < n; i++) {
+        int digit = (arr[i] / exp) % 10;
+        buckets[digit].push_back(arr[i]);
+    }
+    int index = 0;
+    for (int i = 0; i < 10; i++)
+        for (int j = 0; j < buckets[i].size(); j++)
+            arr[index++] = buckets[i][j];
+}
 void radixSort(int arr[], int n) {
     int mx = arr[0];
     for(int i = 0; i < n; i++)
         if(arr[i] > mx)
             mx = arr[i];
-    for(int exp = 1; mx/exp > 0; exp*=10)countingSortRadix(arr, n, exp);
+    for(int exp = 1; mx/exp > 0; exp*=10)bucketSortRadix(arr, n, exp);
 }
 int main() {
     int n;
