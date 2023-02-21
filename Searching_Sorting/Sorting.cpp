@@ -98,8 +98,7 @@ void bucketSort(int arr[], int n, int totalBucket) {
     vector<vector<int>> bucket(totalBucket);
     for(int i = 0; i < n; i++) {
         double diff = (arr[i]-mn)/range - (int)(arr[i]-mn)/range;
-        if(diff == 0 && arr[i] != mn)
-            bucket[(int)(arr[i]-mn)/range - 1].push_back(arr[i]);
+        if(diff == 0 && arr[i] != mn) bucket[(int)(arr[i]-mn)/range - 1].push_back(arr[i]);
         else bucket[(int)(arr[i]-mn)/range].push_back(arr[i]);
     }
     int k = 0;
