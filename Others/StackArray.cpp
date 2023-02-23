@@ -14,7 +14,6 @@ public:
     void pop();
     void top();
     int size();
-
 };
 bool Stack::empty() {
     return (peek == -1);
