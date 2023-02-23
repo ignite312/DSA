@@ -29,7 +29,6 @@ void Stack::push(int x) {
     }else {
         st[++peek] = x;
         cout << x << " Pushed into Stack\n";
-        return;
     }
 }
 void Stack::pop() {
@@ -38,18 +37,16 @@ void Stack::pop() {
         return;
     }else {
         int x = st[peek--];
-        cout << x << " Popped into Stack\n";
-        return;
+        cout << x << " Popped from Stack\n";
     }
 }
 void Stack::top() {
     if(peek == -1) {
-        cout << "Stack Empty\n";
+        cout << "Stack is Empty\n";
         return;
     }else {
         int x = st[peek];
         cout << "Top element is: " << x << "\n";
-        return;
     }
 }
 int main() {
@@ -65,5 +62,5 @@ int main() {
     st.pop();
     st.pop();
     st.top();
-    if(st.empty())cout << "Stact is Empty\n";
+    cout << (st.empty() ? "Stack is Empty\n" : "Stack isn't Empty\n");
 }
