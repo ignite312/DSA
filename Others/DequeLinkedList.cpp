@@ -91,7 +91,7 @@ void pop_back() {
 int main() {
     push_back(1);
     push_back(2);
-    cout << "Total TotalSize: " << size() << "\n";
+    cout << "Total Size: " << size() << "\n";
     cout << (empty() ? "Empty" : "Not Empty") << "\n";
     push_front(7);
     push_front(8);
@@ -102,6 +102,6 @@ int main() {
     pop_back();
     pop_front();
     pop_back();
-    cout << "Total TotalSize: " << size() << "\n";
+    cout << "Total Size: " << size() << "\n";
     cout << (empty() ? "Empty" : "Not Empty") << "\n";
 }
