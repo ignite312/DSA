@@ -75,12 +75,11 @@ int main() {
     postorder(root);
     cout << "\n";
 
-    deleteNode(root, 3);
-    
+    deleteNode(root, 10);
+
     inorder(root);
     cout << "\n";
     preorder(root);
     cout << "\n";
     postorder(root);
-    cout << "\n";
 }
