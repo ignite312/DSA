@@ -6,19 +6,19 @@ struct Node {
     struct Node *left, *right;
 };
 void preorder(struct Node* node) {
-  if (node == NULL) return;
+  if(node == NULL) return;
   cout << node->data << " ";
   preorder(node->left);
   preorder(node->right);
 }
 void postorder(struct Node* node) {
-  if (node == NULL) return;
+  if(node == NULL) return;
   postorder(node->left);
   postorder(node->right);
   cout << node->data << " ";
 }
 void inorder(struct Node* node) {
-  if (node == NULL) return;
+  if(node == NULL) return;
   inorder(node->left);
   cout << node->data << " ";
   inorder(node->right);
@@ -36,9 +36,7 @@ struct Node* insertNode(struct Node* node, int key) {
     return node;
 }
 struct Node* inorderSuccessor(struct Node* node) {
-    while(node->left) {
-        node = node->left;
-    }
+    while(node->left) node = node->left;
     return node;
 }
 struct Node* deleteNode(struct Node* node, int key) {
@@ -55,9 +53,9 @@ struct Node* deleteNode(struct Node* node, int key) {
             free(node);
             return temp;
         }
-        struct Node* temp = inorderSuccessor(temp->right);
+        struct Node* temp = inorderSuccessor(node->right);
         node->data = temp->data;
-        node->right = deleteNode(node->right, key);
+        node->right = deleteNode(node->right, temp->data);
     }
     return node;
 }
@@ -70,7 +68,15 @@ int main() {
         cin >> key;
         root = insertNode(root, key);
     }
+    inorder(root);
+    cout << "\n";
+    preorder(root);
+    cout << "\n";
+    postorder(root);
+    cout << "\n";
+
     deleteNode(root, 3);
+    
     inorder(root);
     cout << "\n";
     preorder(root);
