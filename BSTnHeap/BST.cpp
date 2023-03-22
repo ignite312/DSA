@@ -5,23 +5,23 @@ struct Node {
     int data;
     struct Node *left, *right;
 };
-void preorder(struct Node* node) {
-  if(node == NULL) return;
-  cout << node->data << " ";
-  preorder(node->left);
-  preorder(node->right);
+void preorder(struct Node* root) {
+  if(root == NULL) return;
+  cout << root->data << " ";
+  preorder(root->left);
+  preorder(root->right);
 }
-void postorder(struct Node* node) {
-  if(node == NULL) return;
-  postorder(node->left);
-  postorder(node->right);
-  cout << node->data << " ";
+void postorder(struct Node* root) {
+  if(root == NULL) return;
+  postorder(root->left);
+  postorder(root->right);
+  cout << root->data << " ";
 }
-void inorder(struct Node* node) {
-  if(node == NULL) return;
-  inorder(node->left);
-  cout << node->data << " ";
-  inorder(node->right);
+void inorder(struct Node* root) {
+  if(root == NULL) return;
+  inorder(root->left);
+  cout << root->data << " ";
+  inorder(root->right);
 }
 struct Node* newNode(int key) {
     struct Node* new_node = (struct Node*)malloc(sizeof(struct Node));
@@ -29,35 +29,40 @@ struct Node* newNode(int key) {
     new_node->left = new_node->right = NULL;
     return new_node;
 }
-struct Node* insertNode(struct Node* node, int key) {
-    if(node == NULL) return newNode(key);
-    if(key < node->data)node->left = insertNode(node->left, key);
-    else node->right = insertNode(node->right, key);
-    return node;
+struct Node* insertNode(struct Node* root, int key) {
+    if(root == NULL) return newNode(key);
+    if(key < root->data)root->left = insertNode(root->left, key);
+    else root->right = insertNode(root->right, key);
+    return root;
 }
-struct Node* inorderSuccessor(struct Node* node) {
-    while(node->left) node = node->left;
-    return node;
+struct Node* inorderSuccessor(struct Node* root) {
+    while(root->left) root = root->left;
+    return root;
 }
-struct Node* deleteNode(struct Node* node, int key) {
-    if(node == NULL)return node;
-    if(key < node->data)node->left = deleteNode(node->left, key);
-    else if(key > node->data)node->right = deleteNode(node->right, key);
+struct Node* search(struct Node* root, int key) {
+    if (root == NULL || root->data == key) return root;
+    if (root->data < key) return search(root->right, key); 
+    return search(root->left, key);
+}
+struct Node* deleteNode(struct Node* root, int key) {
+    if(root == NULL)return root;
+    if(key < root->data)root->left = deleteNode(root->left, key);
+    else if(key > root->data)root->right = deleteNode(root->right, key);
     else {
-        if(node->left == NULL) {
-            struct Node* temp = node->right;
-            free(node);
+        if(root->left == NULL) {
+            struct Node* temp = root->right;
+            free(root);
             return temp;
-        }else if(node->right == NULL) {
-            struct Node* temp = node->left;
-            free(node);
+        }else if(root->right == NULL) {
+            struct Node* temp = root->left;
+            free(root);
             return temp;
         }
-        struct Node* temp = inorderSuccessor(node->right);
-        node->data = temp->data;
-        node->right = deleteNode(node->right, temp->data);
+        struct Node* temp = inorderSuccessor(root->right);
+        root->data = temp->data;
+        root->right = deleteNode(root->right, temp->data);
     }
-    return node;
+    return root;
 }
 int main() {
     struct Node* root = NULL;
@@ -74,12 +79,11 @@ int main() {
     cout << "\n";
     postorder(root);
     cout << "\n";
-
     deleteNode(root, 10);
-
     inorder(root);
     cout << "\n";
     preorder(root);
     cout << "\n";
     postorder(root);
+    cout << (search(root, 12) == NULL ? "Not Found" : "Found") << "\n";
 }
