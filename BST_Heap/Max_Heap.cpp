@@ -58,9 +58,7 @@ public:
         increaseKey(i, INT_MAX);
         removeMax();
     }
-    void display() {
-        for(int i = 0; i < heapSize; i++)cout << arr[i] << " ";
-    }
+    void display() {for(int i = 0; i < heapSize; i++)cout << arr[i] << " ";}
 };
 int main() {
     int n;
