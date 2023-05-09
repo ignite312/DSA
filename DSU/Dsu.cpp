@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-
 int parent[1000+10];
 
 void make_set(int v) {
