@@ -23,13 +23,11 @@ public:
         else front++;
     }
 };
-
 class Graph {
 public:
     int vertices;
     int adjMatrix[MAX][MAX];
     bool visited[MAX];
-
     Graph(int v) {
         vertices = v;
         for (int i = 1; i <= vertices; i++)
@@ -46,7 +44,6 @@ public:
             if(adjMatrix[vertex][i] && !visited[i])
                 dfs(i);
     }
-    
     void bfs(int vertex) {
         Queue q;
         q.push(vertex);
