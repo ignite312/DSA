@@ -7,6 +7,24 @@ struct Node {
   Node *right;
   int height;
 };
+void inorder(struct Node* root) {
+  if(root == NULL) return;
+  inorder(root->left);
+  cout << root->key << " ";
+  inorder(root->right);
+}
+void preorder(struct Node* root) {
+  if(root == NULL) return;
+  cout << root->key << " ";
+  preorder(root->left);
+  preorder(root->right);
+}
+void postorder(struct Node* root) {
+  if(root == NULL) return;
+  postorder(root->left);
+  postorder(root->right);
+  cout << root->key << " ";
+}
 int height(Node *N) {
   if (N == NULL)
     return 0;
@@ -144,7 +162,6 @@ Node *deleteNode(Node *root, int key) {
   }
   return root;
 }
-
 int main() {
   Node *root = NULL;
   root = insertNode(root, 33);
@@ -155,6 +172,9 @@ int main() {
   root = insertNode(root, 61);
   root = insertNode(root, 8);
   root = insertNode(root, 11);
+  preorder(root);
+  cout << "\n";
   root = deleteNode(root, 13);
-  cout << "After deleting " << endl;
+  preorder(root);
+  cout << "\n";
 }
