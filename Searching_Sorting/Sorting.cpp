@@ -32,13 +32,18 @@ void selectionSort(int arr[], int n) {
 void merge(int arr[], int l, int r, int mid) {
     int l_sz = mid - l + 1;
     int r_sz = r - (mid + 1) + 1;
-    int L[l_sz+1], R[r_sz+1];
+    int L[l_sz], R[r_sz];
     for(int i = 0; i < l_sz; i++)L[i] = arr[i+l];
     for(int i = 0; i < r_sz; i++)R[i] = arr[i+mid+1];
-    L[l_sz] = R[r_sz] = INT_MAX;
     int l_i = 0, r_i = 0;
     for(int i = l; i <= r; i++) {
-        if(L[l_i] <= R[r_i]) {
+        if(r_i == r_sz) {
+            arr[i] = L[l_i];
+            l_i++;
+        }else if(l_i == l_sz) {
+            arr[i] = R[r_i];
+            r_i++;
+        }else if(L[l_i] <= R[r_i]) {
             arr[i] = L[l_i];
             l_i++;
         }else {
@@ -109,6 +114,36 @@ void bucketSort(int arr[], int n, int totalBucket) {
             arr[k++] = bucket[i][j];
     return;
 }
+void mergeRadix(int arr[], int l, int r, int mid, int exp) {
+    int l_sz = mid - l + 1;
+    int r_sz = r - (mid + 1) + 1;
+    int L[l_sz+1], R[r_sz+1];
+    for(int i = 0; i < l_sz; i++)L[i] = arr[i+l];
+    for(int i = 0; i < r_sz; i++)R[i] = arr[i+mid+1];
+    int l_i = 0, r_i = 0;
+    for(int i = l; i <= r; i++) {
+        if(r_i == r_sz) {
+            arr[i] = L[l_i];
+            l_i++;
+        }else if(l_i == l_sz) {
+            arr[i] = R[r_i];
+            r_i++;
+        }else if((L[l_i]/exp) % 10 <= (R[r_i]/exp)%10) {
+            arr[i] = L[l_i];
+            l_i++;
+        }else {
+            arr[i] = R[r_i];
+            r_i++;
+        }
+    }
+}
+void mergeSortRadix(int arr[], int l, int r, int exp) {
+    if(l == r)return;
+    int mid = l + (r - l)/2;
+    mergeSortRadix(arr, l, mid, exp);
+    mergeSortRadix(arr, mid+1, r, exp);
+    mergeRadix(arr, l, r, mid, exp);
+}
 void countingSortRadix(int arr[], int n, int exp) {
     int ans[n];
     int cnt[10];
@@ -144,7 +179,7 @@ int main() {
     scanf("%d", &n);
     int arr[n];
     for(int i = 0; i < n; i++)scanf("%d", &arr[i]); 
-    quickSort(arr, 0, n-1);
+    mergeSort(arr, 0, n-1);
     for(int i = 0; i < n; i++)printf("%d ", arr[i]);
     return 0;
 }
