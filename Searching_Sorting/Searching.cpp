@@ -17,6 +17,18 @@ int binarySearch(int arr[], int n, int x) {
     }
     return -1;
 }
+int binarySearchRecursive(int arr[], int x, int low, int high) {
+    if (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == x)
+            return mid;
+        else if (arr[mid] < x)
+            return binarySearchRecursive(arr, x, mid + 1, high);
+        else
+            return binarySearchRecursive(arr, x, low, mid - 1);
+    }
+    return -1;
+}
 int upper_bound(int arr[], int n, int x) {
     int l = 0, h = n;
     while(l < h) {
